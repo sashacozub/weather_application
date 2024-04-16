@@ -12,7 +12,7 @@ The benefit of using this application is its provision of real-time and accurate
 
 ## Architecture diagram
 
-<img src="https://i.imgur.com/YdIyL4I.png" alt="architecture diagram for weather application" width="1080"/>
+<img src="https://i.imgur.com/9rYwRRa.png" alt="architecture diagram for weather application" width="1080"/>
 
 ## Technologies
 
