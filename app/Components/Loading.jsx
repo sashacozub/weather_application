@@ -1,17 +1,12 @@
 import Image from 'next/image';
 
-type Props = {
-  height: number;
-  width: number;
-};
-
-const Loading = (props: Props) => {
+const Loading = ({ height, width }) => {
   return (
     <Image
       className='animate-spin'
       src='/assets/logo.png'
-      height={props.height}
-      width={props.width}
+      height={height}
+      width={width}
       alt='weather application logo'
       priority={true}
     />
