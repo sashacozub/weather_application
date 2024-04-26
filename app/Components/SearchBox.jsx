@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 import axios from 'axios';
 
@@ -9,12 +9,23 @@ const SearchBox = ({ onSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [citiesFound, setCitiesFound] = useState(0);
 
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timeoutId = setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [errorMessage]);
+
   const handleInputChange = async (e) => {
     setInputValue(e.target.value);
     if (inputValue.length > 0) {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${API_KEY}`
         );
 
         const results = response.data.count;
