@@ -12,7 +12,6 @@ export const useWeatherQuery = (searchQuery) => {
         `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${API_KEY}&cnt=40`
       );
 
-      console.log(data.list.slice(1, 9));
       return data;
     },
   });

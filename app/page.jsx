@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { convertTemperature } from './utils/temperatureConverter';
 import { capitalizeString } from './utils/capitalizeString';
-import { formatTimestamp } from './utils/formatTimestamp';
 import Loading from './Components/Loading';
 import ErrorPage from './Components/ErrorPage';
 import Navbar from './Components/Navbar';
+import Container from './Components/Container';
 
 import { useWeatherQuery } from './api/weather';
 
@@ -115,10 +115,7 @@ export default function Home() {
       {loading ? (
         <Loading height={100} width={100} />
       ) : (
-        <div
-          className='custom-bg flex flex-col items-center justify-around min-h-screen min-w-screen px-5 py-10 w-full'
-          style={{ minHeight: 'calc(100vh - 80px)' }}
-        >
+        <div className='custom-bg flex flex-col items-center justify-around min-h-screen min-w-screen px-5 py-10 w-full'>
           <Navbar
             handleCurrentLocation={handleCurrentLocation}
             onSubmit={onSubmit}
@@ -148,55 +145,19 @@ export default function Home() {
           </div>
 
           <div className='flex flex-col w-full justify-center items-center max-w-7xl'>
-            {/* <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
-              <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
-                {data.list.slice(0, 9).map((item) => {
-                  return (
-                    <div
-                      key={item.dt}
-                      className='flex flex-col justify-between items-center px-3 gap-2'
-                    >
-                      <h3 className='font-thin'>{formatTimestamp(item.dt)}</h3>
-                      <img
-                        className='bg-sky-300 rounded-full'
-                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                      />
-                      <h3 className='font-medium'>
-                        {isMetric
-                          ? convertTemperature(item.main.temp, 'celcius')
-                          : convertTemperature(item.main.temp, 'fahrenheit')}
-                        &deg;
-                      </h3>
-                    </div>
-                  );
-                })}
-              </div>
-            </div> */}
+            {/* Container with hourly weather */}
+            <Container
+              dataToIterate={data.list.slice(0, 9)}
+              timestampFormat={'time'}
+              isMetric={isMetric}
+            />
 
-            {/* <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
-              <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
-                {data.list.slice(0, 9).map((item) => {
-                  return (
-                    <div
-                      key={item.dt}
-                      className='flex flex-col justify-between items-center px-3 gap-2'
-                    >
-                      <h3 className='font-thin'>{formatTimestamp(item.dt)}</h3>
-                      <img
-                        className='bg-sky-300 rounded-full'
-                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                      />
-                      <h3 className='font-medium'>
-                        {isMetric
-                          ? convertTemperature(item.main.temp, 'celcius')
-                          : convertTemperature(item.main.temp, 'fahrenheit')}
-                        &deg;
-                      </h3>
-                    </div>
-                  );
-                })}
-              </div>
-            </div> */}
+            {/* Container with 5-day forecast */}
+            <Container
+              dataToIterate={fiveDaysForecastData}
+              timestampFormat={'day'}
+              isMetric={isMetric}
+            />
           </div>
         </div>
       )}
