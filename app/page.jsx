@@ -1,182 +1,202 @@
 'use client';
 
-import { useState, useEffect, useReducer } from 'react';
-import Image from 'next/image';
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchBox from './Components/SearchBox';
-import { MdOutlineLocationOn } from 'react-icons/md';
-import Loading from './Components/Loading';
-import {
-  convertKelvinToCelcius,
-  convertKelvinToFahrenheit,
-} from './utils/temperatureConverter';
-import Switch from 'react-switch';
+import { convertTemperature } from './utils/temperatureConverter';
 import { capitalizeString } from './utils/capitalizeString';
+import { formatTimestamp } from './utils/formatTimestamp';
+import Loading from './Components/Loading';
+import ErrorPage from './Components/ErrorPage';
+import Navbar from './Components/Navbar';
+
+import { useWeatherQuery } from './api/weather';
 
 export default function Home() {
-  const [isCelcius, setIsCelcius] = useState(true);
+  const [isMetric, setIsMetric] = useState(true);
   const [searchQuery, setSearchQuery] = useState('oslo');
   const [loading, setLoading] = useState(false);
+  const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
+  // Function for converting temperature from metric to imperial and vice versa
   const handleTemperatureUnitsChange = () => {
-    setIsCelcius(!isCelcius);
+    setIsMetric(!isMetric);
   };
 
+  // Function for getting user's current location
   const handleCurrentLocation = () => {
+    setLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
+        // Get weather data based on user's current location
         try {
-          setLoading(true);
           const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
           );
           setTimeout(() => {
             setLoading(false);
             setSearchQuery(response.data.name);
+            console.log(fiveDaysForecastData);
           }, 500);
         } catch (error) {
           setLoading(false);
+          throw new Error(error);
           console.log(error);
         }
       });
     }
   };
 
+  // Function for handling search query on form submission
   const onSubmit = (query) => {
+    console.log(fiveDaysForecastData);
     setLoading(true);
     setTimeout(() => {
       setSearchQuery(query);
       setLoading(false);
-    }, 500);
+    }, 500); //
   };
 
-  const { isPending, error, data, refetch } = useQuery({
-    queryKey: ['repoData'],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${API_KEY}&cnt=40`
-      );
-
-      return data;
-    },
-  });
+  // Fetch weather data based on search query using react-query
+  const { isPending, error, data, refetch } = useWeatherQuery(searchQuery);
 
   useEffect(() => {
-    refetch();
+    refetch(); // Refetch the weather data when search query changes
   }, [searchQuery, refetch]);
 
-  if (isPending)
-    return (
-      <div className='flex items-center justify-center min-h-screen custom-bg'>
-        <Loading height={100} width={100} />
-      </div>
-    );
+  // Fetch weather forecast data on initial page load
+  useEffect(() => {
+    if (data) {
+      // Extract forecast dates from fetched data
+      const forecastDates = [
+        ...new Set(
+          data.list.map(
+            (entry) => new Date(entry.dt * 1000).toISOString().split('T')[0]
+          )
+        ),
+      ];
 
-  if (error)
-    return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <h3>{error.response.status}</h3>
-      </div>
-    );
+      // Filter forecast data for the next 5 days at 9:00 AM
+      const fiveDaysData = forecastDates.map((date) => {
+        return data.list.find((entry) => {
+          const entryDate = new Date(entry.dt * 1000)
+            .toISOString()
+            .split('T')[0];
+          const entryTime = new Date(entry.dt * 1000).getHours();
+          return entryDate === date && entryTime >= 9;
+        });
+      });
+      setFiveDaysForecastData(fiveDaysData);
+      console.log(fiveDaysData);
+    }
+  }, [data]);
 
-  const currentCity = data.city;
-  const currentWeather = data.list[0];
+  // Display loading screen while the data is being fetched
+  if (isPending) return <Loading height={100} width={100} />;
 
-  const temperatureInCelcius = convertKelvinToCelcius(currentWeather.main.temp);
-  const temperatureInFahrenheit = convertKelvinToFahrenheit(
-    currentWeather.main.temp
-  );
+  // Display error message in case of an error
+  if (error) return <ErrorPage />;
 
-  const forecastDates = [
-    ...new Set(
-      data.list.map(
-        (entry) => new Date(entry.dt * 1000).toISOString().split('T')[0]
-      )
-    ),
-  ];
-
-  const fiveDaysForecastData = forecastDates.map((date) => {
-    return data.list.find((entry) => {
-      const entryDate = new Date(entry.dt * 1000).toISOString().split('T')[0];
-      const entryTime = new Date(entry.dt * 1000).getHours();
-      return entryDate === date && entryTime >= 9;
-    });
-  });
-
-  console.log(data);
-  console.log(forecastDates);
-  console.log(fiveDaysForecastData);
+  // Desctructure the JSON response from weather API
+  const {
+    city: { name: cityName, country },
+    list: [
+      {
+        main: { temp: currentTemperature },
+        weather: [{ icon, description }],
+      },
+    ],
+  } = data;
 
   return (
     <div className='flex flex-col min-h-screen'>
       {loading ? (
-        <div className='flex items-center justify-center min-h-screen custom-bg'>
-          <Loading height={100} width={100} />
-        </div>
+        <Loading height={100} width={100} />
       ) : (
         <div
-          className='custom-bg flex flex-col items-center justify-around py-5 min-h-screen min-w-screen'
+          className='custom-bg flex flex-col items-center justify-around min-h-screen min-w-screen px-5 py-10 w-full'
           style={{ minHeight: 'calc(100vh - 80px)' }}
         >
-          <div className='flex flex-row items-center gap-4 w-full justify-center'>
-            <a href='/'>
-              <Image
-                src='/assets/logo.png'
-                height={40}
-                width={40}
-                alt='weather application logo'
-                priority={true}
-              />
-            </a>
-            <MdOutlineLocationOn
-              className='cursor-pointer hover:opacity-80 hover:text-accent-color text-3xl transition duration-200 ease-in-out'
-              onClick={handleCurrentLocation}
-            />
-            <SearchBox onSubmit={onSubmit} />
-            <Switch
-              className='border border-gray-300'
-              checked={isCelcius}
-              onChange={handleTemperatureUnitsChange}
-              onColor='#fff'
-              offColor='#fff'
-              onHandleColor='#6D00A0'
-              offHandleColor='#6D00A0'
-              checkedIcon={
-                <p className='flex justify-center items-center h-full pl-1'>
-                  C&deg;
-                </p>
-              }
-              uncheckedIcon={
-                <p className='flex justify-center items-center h-full'>
-                  F&deg;
-                </p>
-              }
-              activeBoxShadow='0 0 2px 3px #6D00A0'
-            />
-          </div>
+          <Navbar
+            handleCurrentLocation={handleCurrentLocation}
+            onSubmit={onSubmit}
+            isMetric={isMetric}
+            handleTemperatureUnitsChange={handleTemperatureUnitsChange}
+          />
 
-          <div className='flex flex-col items-center'>
-            <h3 className='text-2xl'>
-              {currentCity.name}, {currentCity.country}
+          <div className='flex flex-col items-center py-10'>
+            <h3>
+              {cityName}, {country}
             </h3>
-            <h1 className='text-8xl font-medium'>
-              {isCelcius ? temperatureInCelcius : temperatureInFahrenheit}&deg;
+
+            <h1>
+              {isMetric
+                ? convertTemperature(currentTemperature, 'celcius')
+                : convertTemperature(currentTemperature, 'fahrenheit')}
+              &deg;
             </h1>
+
             <div className='flex flex-row items-center gap-2'>
-              <h4>{capitalizeString(currentWeather.weather[0].description)}</h4>
+              <h4>{capitalizeString(description)}</h4>
               <img
                 className='bg-sky-300 rounded-full'
-                src={`https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}.png`}
+                src={`https://openweathermap.org/img/wn/${icon}.png`}
               />
             </div>
           </div>
-          <div>
-            <h4>Forecast Hourly</h4>
-            <h4>Forecast Daily</h4>
+
+          <div className='flex flex-col w-full justify-center items-center max-w-7xl'>
+            <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
+              <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
+                {data.list.slice(0, 9).map((item) => {
+                  return (
+                    <div
+                      key={item.dt}
+                      className='flex flex-col justify-between items-center px-3 gap-2'
+                    >
+                      <h3 className='font-thin'>{formatTimestamp(item.dt)}</h3>
+                      <img
+                        className='bg-sky-300 rounded-full'
+                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                      />
+                      <h3 className='font-medium'>
+                        {isMetric
+                          ? convertTemperature(item.main.temp, 'celcius')
+                          : convertTemperature(item.main.temp, 'fahrenheit')}
+                        &deg;
+                      </h3>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
+              <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
+                {data.list.slice(0, 9).map((item) => {
+                  return (
+                    <div
+                      key={item.dt}
+                      className='flex flex-col justify-between items-center px-3 gap-2'
+                    >
+                      <h3 className='font-thin'>{formatTimestamp(item.dt)}</h3>
+                      <img
+                        className='bg-sky-300 rounded-full'
+                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                      />
+                      <h3 className='font-medium'>
+                        {isMetric
+                          ? convertTemperature(item.main.temp, 'celcius')
+                          : convertTemperature(item.main.temp, 'fahrenheit')}
+                        &deg;
+                      </h3>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       )}
