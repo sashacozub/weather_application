@@ -148,7 +148,7 @@ export default function Home() {
           </div>
 
           <div className='flex flex-col w-full justify-center items-center max-w-7xl'>
-            <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
+            {/* <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
               <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
                 {data.list.slice(0, 9).map((item) => {
                   return (
@@ -171,9 +171,9 @@ export default function Home() {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
 
-            <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
+            {/* <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2'>
               <div className='flex justify-between py-3 overflow-x-auto overflow-hidden gap-5'>
                 {data.list.slice(0, 9).map((item) => {
                   return (
@@ -196,7 +196,7 @@ export default function Home() {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
