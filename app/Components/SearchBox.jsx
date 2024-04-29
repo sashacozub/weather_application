@@ -34,7 +34,7 @@ const SearchBox = ({ onSubmit }) => {
     if (e.target.value.length >= 3 && e.target.value.trim() != '') {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${process.env.API_KEY}`
         );
 
         const results = response.data.count;
