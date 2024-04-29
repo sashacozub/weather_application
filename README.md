@@ -10,6 +10,8 @@ This is a university project developed for the Web Development subject.
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
   - [Accessing the Application](#accessing-the-application)
+- [Architecture Diagram](#accessing-the-application)
+- [Application Screenshot](#accessing-the-application)
 
 ## Overview
 
@@ -79,3 +81,11 @@ npm run dev
 ### Accessing the Application
 
 After running the application locally, you should be able to access it in your web browser using the following URL: http://localhost:3000. If you encounter any issues accessing it, ensure that the server started by your IDE is running correctly.
+
+## Architecture Diagram
+
+<img src="https://i.imgur.com/9rYwRRa.png" alt="architecture diagram for weather application" width="1080"/>
+
+## Application Screenshot
+
+<img src="https://i.imgur.com/W1AAYPY.png" alt="screenshot of weather application" width="1080"/>
