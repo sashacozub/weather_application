@@ -11,7 +11,6 @@ This is a university project developed for the Web Development subject.
   - [Set Up Environment Variables](#set-up-environment-variables)
   - [Running the Application](#running-the-application)
   - [Accessing the Application](#accessing-the-application)
-- [Project Status](#project-status)
 
 ## Overview
 
@@ -66,7 +65,7 @@ The aim of this project is to create a weather application that delivers real-ti
    yarn install
    ```
 
-4. **Set Up Environment Variables**
+4. **Set Up Environment Variables:**
 
    To insert your API key, open the .env.local file in the root directory and replace YOUR_API_KEY with your actual API key. Remember not to share your API keys publicly.
 
