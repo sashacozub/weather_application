@@ -1,6 +1,8 @@
 {
   "name": "weather_application",
   "version": "0.1.0",
+  "author": "Alexandr Cozub",
+  "description": "A weather application that displays current weather information and a 5-day forecast.",
   "private": true,
   "scripts": {
     "dev": "next dev",

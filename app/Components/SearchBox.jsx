@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 import axios from 'axios';
 
+/**
+ * SearchBox component for searching cities in a weather application.
+ *
+ * @param {Function} props.onSubmit - The function to be called when a search is submitted.
+ * @returns {JSX.Element} The SearchBox component.
+ */
+
 const SearchBox = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');

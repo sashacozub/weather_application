@@ -1,4 +1,10 @@
-// Function for converting Kelvin temperature to Celcius or Fahrenheit
+/**
+ * Converts temperature from Kelvin to Celcius or Fahrenheit.
+ * @param {number} temperatureInKelvin - The temperature in Kelvin.
+ * @param {string} format - The desired format for the converted temperature ('celcius' or 'fahrenheit').
+ * @returns {number} - The converted temperature.
+ */
+
 export const convertTemperature = (temperatureInKelvin, format) => {
   if (format === 'celcius') {
     const temperatureInCelcius = temperatureInKelvin - 273.15;

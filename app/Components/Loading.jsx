@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+// Loading component that displays a loading spinner with a logo
 const Loading = ({ height, width }) => {
   return (
     <div className='flex items-center justify-center min-h-screen custom-bg'>

@@ -1,6 +1,15 @@
 import { convertTemperature } from '../utils/temperatureConverter';
 import { formatTimestamp } from '../utils/formatTimestamp';
 
+/**
+ * Renders a container component that displays weather data.
+ *
+ * @param {Array} props.dataToIterate - The array of weather data to iterate over.
+ * @param {string} props.timestampFormat - The format of the timestamp to display.
+ * @param {boolean} props.isMetric - Indicates whether the temperature is in metric units.
+ * @returns {JSX.Element} The rendered container component.
+ */
+
 const Container = ({ dataToIterate, timestampFormat, isMetric }) => {
   return (
     <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2 shadow-md'>

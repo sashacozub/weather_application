@@ -8,8 +8,14 @@ import Loading from './Components/Loading';
 import ErrorPage from './Components/ErrorPage';
 import Navbar from './Components/Navbar';
 import Container from './Components/Container';
+import { IoIosArrowRoundUp } from 'react-icons/io';
 
 import { useWeatherQuery } from './api/weather';
+
+/**
+ * Home component for the weather application.
+ * Renders the main page with weather information and forecast.
+ */
 
 export default function Home() {
   const [isMetric, setIsMetric] = useState(true);
@@ -19,12 +25,16 @@ export default function Home() {
 
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-  // Function for converting temperature from metric to imperial and vice versa
+  /**
+   * Function for converting temperature units between metric and imperial.
+   */
   const handleTemperatureUnitsChange = () => {
     setIsMetric(!isMetric);
   };
 
-  // Function for getting user's current location
+  /**
+   * Function for getting user's current location and fetching weather data.
+   */
   const handleCurrentLocation = () => {
     setLoading(true);
     if (navigator.geolocation) {
@@ -49,14 +59,17 @@ export default function Home() {
     }
   };
 
-  // Function for handling search query on form submission
+  /**
+   * Function for handling search query on form submission.
+   * @param {string} query - The search query entered by the user.
+   */
   const onSubmit = (query) => {
     console.log(fiveDaysForecastData);
     setLoading(true);
     setTimeout(() => {
       setSearchQuery(query);
       setLoading(false);
-    }, 500); //
+    }, 500);
   };
 
   // Fetch weather data based on search query using react-query
@@ -66,7 +79,6 @@ export default function Home() {
     refetch(); // Refetch the weather data when search query changes
   }, [searchQuery, refetch]);
 
-  // Fetch weather forecast data on initial page load
   useEffect(() => {
     if (data) {
       // Extract forecast dates from fetched data
@@ -89,23 +101,21 @@ export default function Home() {
         });
       });
       setFiveDaysForecastData(fiveDaysData);
-      console.log(fiveDaysData);
     }
   }, [data]);
 
-  // Display loading screen while the data is being fetched
   if (isPending) return <Loading height={100} width={100} />;
 
-  // Display error message in case of an error
   if (error) return <ErrorPage />;
 
-  // Desctructure the JSON response from weather API
+  // Destructure fetched data
   const {
     city: { name: cityName, country },
     list: [
       {
         main: { temp: currentTemperature },
         weather: [{ icon, description }],
+        wind: { deg: degrees, speed: windSpeed },
       },
     ],
   } = data;
@@ -141,6 +151,13 @@ export default function Home() {
                 className='bg-sky-300 rounded-full'
                 src={`https://openweathermap.org/img/wn/${icon}.png`}
               />
+
+              {/* Wind speed */}
+              <IoIosArrowRoundUp
+                size={30}
+                style={{ transform: `rotate(${degrees}deg)` }}
+              />
+              <p className='text-sm'>{windSpeed} m/s</p>
             </div>
           </div>
 

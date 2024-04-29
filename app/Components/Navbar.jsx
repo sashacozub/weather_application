@@ -3,6 +3,16 @@ import { MdOutlineLocationOn } from 'react-icons/md';
 import Switch from 'react-switch';
 import SearchBox from './SearchBox';
 
+/**
+ * Navbar component for the weather application.
+ *
+ * @param {Function} props.handleCurrentLocation - The function to handle fetching the user's current location.
+ * @param {Function} props.onSubmit - The function to handle form submission.
+ * @param {boolean} props.isMetric - A boolean indicating whether the temperature is in metric units.
+ * @param {Function} props.handleTemperatureUnitsChange - The function to handle changing the temperature units.
+ * @returns {JSX.Element} The rendered Navbar component.
+ */
+
 const Navbar = ({
   handleCurrentLocation,
   onSubmit,
