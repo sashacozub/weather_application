@@ -84,7 +84,7 @@ After running the application locally, you should be able to access it in your w
 
 ## Architecture Diagram
 
-<img src="https://i.imgur.com/9rYwRRa.png" alt="architecture diagram for weather application" width="1080"/>
+<img src="https://i.imgur.com/qU43SHd.png" alt="architecture diagram for weather application" width="1080"/>
 
 ## Application Screenshot
 
