@@ -16,7 +16,8 @@ const SearchBox = ({ onSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [citiesFound, setCitiesFound] = useState(0); // State for storing the number of cities found after search
 
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  // Only used for localhost development with .env.local file
+  // const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   // Show error message in case couldn't find user's search query
   useEffect(() => {

@@ -23,7 +23,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  // Only used for localhost development with .env.local file
+  // const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   /**
    * Function for converting temperature units between metric and imperial.
