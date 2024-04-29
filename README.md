@@ -8,7 +8,6 @@ This is a university project developed for the Web Development subject.
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Set Up Environment Variables](#set-up-environment-variables)
   - [Running the Application](#running-the-application)
   - [Accessing the Application](#accessing-the-application)
 
