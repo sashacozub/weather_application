@@ -22,7 +22,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
-  // const API_KEY = process.env.WEATHER_API_KEY;
+  const API_KEY = process.env.WEATHER_API_KEY;
+  // const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   /**
    * Function for converting temperature units between metric and imperial.
@@ -42,7 +43,7 @@ export default function Home() {
         // Get weather data based on user's current location
         try {
           const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.WEATHER_API_KEY}`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
           );
           setTimeout(() => {
             setLoading(false);
@@ -79,7 +80,6 @@ export default function Home() {
   }, [searchQuery, refetch]);
 
   useEffect(() => {
-    console.log(API_KEY);
     if (data) {
       // Extract forecast dates from fetched data
       const forecastDates = [
