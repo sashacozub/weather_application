@@ -2,6 +2,17 @@
 
 This is a university project developed for the Web Development subject.
 
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Set Up Environment Variables](#set-up-environment-variables)
+  - [Running the Application](#running-the-application)
+  - [Accessing the Application](#accessing-the-application)
+- [Project Status](#project-status)
+
 ## Overview
 
 The aim of this project is to create a weather application that delivers real-time weather information for the user’s desired location. It caters to travelers, hikers, photographers, event planners, and anyone needing timely weather forecasts.
