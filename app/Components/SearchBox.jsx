@@ -16,7 +16,7 @@ const SearchBox = ({ onSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [citiesFound, setCitiesFound] = useState(0); // State for storing the number of cities found after search
 
-  const API_KEY = process.env.WEATHER_API_KEY;
+  // const API_KEY = process.env.WEATHER_API_KEY;
 
   // Show error message in case couldn't find user's search query
   useEffect(() => {
@@ -34,7 +34,7 @@ const SearchBox = ({ onSubmit }) => {
     if (e.target.value.length > 0 && e.target.value.trim() != '') {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&appid=${process.env.WEATHER_API_KEY}`
         );
 
         const results = response.data.count;
