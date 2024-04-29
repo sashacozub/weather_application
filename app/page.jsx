@@ -62,7 +62,6 @@ export default function Home() {
    * @param {string} query - The search query entered by the user.
    */
   const onSubmit = (query) => {
-    console.log(fiveDaysForecastData);
     setLoading(true);
     setTimeout(() => {
       setSearchQuery(query);
