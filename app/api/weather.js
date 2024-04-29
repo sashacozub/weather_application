@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.WEATHER_API_KEY;
 
 // Fetch weather data based on search query using react-query
 /**

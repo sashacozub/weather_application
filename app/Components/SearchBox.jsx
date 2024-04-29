@@ -16,7 +16,7 @@ const SearchBox = ({ onSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [citiesFound, setCitiesFound] = useState(0); // State for storing the number of cities found after search
 
-  const API_KEY = process.env.API_KEY;
+  const API_KEY = process.env.WEATHER_API_KEY;
 
   // Show error message in case couldn't find user's search query
   useEffect(() => {

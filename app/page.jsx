@@ -9,7 +9,6 @@ import ErrorPage from './Components/ErrorPage';
 import Navbar from './Components/Navbar';
 import Container from './Components/Container';
 import { IoIosArrowRoundUp } from 'react-icons/io';
-
 import { useWeatherQuery } from './api/weather';
 
 /**
@@ -23,7 +22,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
-  const API_KEY = process.env.API_KEY;
+  const API_KEY = process.env.WEATHER_API_KEY;
 
   /**
    * Function for converting temperature units between metric and imperial.
@@ -80,6 +79,7 @@ export default function Home() {
   }, [searchQuery, refetch]);
 
   useEffect(() => {
+    console.log(API_KEY);
     if (data) {
       // Extract forecast dates from fetched data
       const forecastDates = [
