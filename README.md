@@ -88,4 +88,4 @@ After running the application locally, you should be able to access it in your w
 
 ## Application Screenshot
 
-<img src="https://i.imgur.com/W1AAYPY.png" alt="screenshot of weather application" width="1080"/>
+<img src="https://i.imgur.com/ZQdZ0fC.png" alt="screenshot of weather application" width="1080"/>
