@@ -16,7 +16,7 @@ export const useWeatherQuery = (searchQuery) => {
     queryKey: ['repoData'],
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${process.env.API_KEY}&cnt=40`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${process.env.NEXT_PUBLIC_API_KEY}&cnt=40`
       );
 
       return data;
