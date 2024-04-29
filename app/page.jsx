@@ -22,8 +22,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
-  const API_KEY = process.env.WEATHER_API_KEY;
-  // const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   /**
    * Function for converting temperature units between metric and imperial.
@@ -48,7 +47,6 @@ export default function Home() {
           setTimeout(() => {
             setLoading(false);
             setSearchQuery(response.data.name);
-            console.log(fiveDaysForecastData);
           }, 500);
         } catch (error) {
           setLoading(false);
