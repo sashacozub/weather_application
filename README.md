@@ -78,6 +78,20 @@ To run the application locally, use the following command:
 npm run dev
 ```
 
+To build the application for production, use the following command:
+
+```sh
+npm run build
+```
+
+After building the application, you can start the production server using:
+
+```sh
+npm start
+```
+
+These commands will build the optimized production bundle and start a production server to serve the application.
+
 ### Accessing the Application
 
 After running the application locally, you should be able to access it in your web browser using the following URL: http://localhost:3000. If you encounter any issues accessing it, ensure that the server started by your IDE is running correctly.
