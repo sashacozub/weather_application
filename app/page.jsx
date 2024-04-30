@@ -10,6 +10,7 @@ import Navbar from './Components/Navbar';
 import Container from './Components/Container';
 import { IoIosArrowRoundUp } from 'react-icons/io';
 import { useWeatherQuery } from './api/weather';
+import Head from 'next/head';
 
 /**
  * Home component for the weather application.
@@ -119,6 +120,10 @@ export default function Home() {
 
   return (
     <div className='flex flex-col min-h-screen'>
+      <Head>
+        <title>Weather Application</title>
+        <meta property='og:title' content='Weather Application' key='title' />
+      </Head>
       {loading ? (
         <Loading height={100} width={100} />
       ) : (
@@ -145,6 +150,7 @@ export default function Home() {
             <div className='flex flex-row items-center gap-2'>
               <h4>{capitalizeString(description)}</h4>
               <img
+                alt='weather icon'
                 className='bg-sky-300 rounded-full'
                 src={`https://openweathermap.org/img/wn/${icon}.png`}
               />

@@ -24,6 +24,7 @@ const Container = ({ dataToIterate, timestampFormat, isMetric }) => {
                 {formatTimestamp(item.dt, timestampFormat)}
               </h3>
               <img
+                alt='weather icon'
                 className='bg-sky-300 rounded-full'
                 src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
               />

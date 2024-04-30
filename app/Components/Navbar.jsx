@@ -35,6 +35,7 @@ const Navbar = ({
 
         {/* Button for switching temperature format */}
         <Switch
+          aria-label='Switch temperature units'
           className='border border-gray-300'
           checked={isMetric}
           onChange={handleTemperatureUnitsChange}
@@ -54,10 +55,13 @@ const Navbar = ({
         />
 
         {/* Button for fetching user's current location */}
-        <MdOutlineLocationOn
+        <button
+          aria-label='Get current location'
           className='cursor-pointer hover:opacity-80 hover:text-accent-color text-3xl transition duration-200 ease-in-out'
           onClick={handleCurrentLocation}
-        />
+        >
+          <MdOutlineLocationOn />
+        </button>
       </div>
 
       <SearchBox onSubmit={onSubmit} />

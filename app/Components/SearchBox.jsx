@@ -78,7 +78,10 @@ const SearchBox = ({ onSubmit }) => {
           </div>
         )}
       </>
-      <button className='px-4 py-[9px] h-full border border-gray-300 rounded-r-3xl text-white bg-accent-color focus:outline-none focus:border-accent-color hover:border hover:border-gray-300 hover:text-black hover:bg-white transition ease-in-out duration-200'>
+      <button
+        aria-label='Search'
+        className='px-4 py-[9px] h-full border border-gray-300 rounded-r-3xl text-white bg-accent-color focus:outline-none focus:border-accent-color hover:border hover:border-gray-300 hover:text-black hover:bg-white transition ease-in-out duration-200'
+      >
         <MdOutlineSearch className='text-lg' />
       </button>
     </form>
