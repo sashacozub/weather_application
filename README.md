@@ -68,7 +68,7 @@ The aim of this project is to create a weather application that delivers real-ti
 
 4. **Set Up Environment Variables:**
 
-   To insert your API key, open the .env.local file in the root directory and replace YOUR_API_KEY with your actual API key. Remember not to share your API keys publicly.
+   To insert your API key, open the .env.local file in the root directory and replace YOUR_API_KEY with your actual API key.
 
 ### Running the Application
 
