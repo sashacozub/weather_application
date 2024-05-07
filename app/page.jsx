@@ -99,6 +99,7 @@ export default function Home() {
         });
       });
       setFiveDaysForecastData(fiveDaysData);
+      console.log(fiveDaysData);
     }
   }, [data]);
 
@@ -173,11 +174,13 @@ export default function Home() {
             />
 
             {/* Container with 5-day forecast */}
-            <Container
-              dataToIterate={fiveDaysForecastData}
-              timestampFormat={'day'}
-              isMetric={isMetric}
-            />
+            {fiveDaysForecastData.length > 0 && ( // Wait for forecast data to be fetched to the state
+              <Container
+                dataToIterate={fiveDaysForecastData}
+                timestampFormat={'day'}
+                isMetric={isMetric}
+              />
+            )}
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 const ErrorPage = () => {
   return (
     <div className='flex flex-col items-center justify-center min-h-screen custom-bg'>
-      ;<h2 className='text-center'>Oops, something went wrong!</h2>
+      <h2 className='text-center'>Oops, something went wrong!</h2>
       <a href='/'>
         <button
           aria-label='Go back to home page'
