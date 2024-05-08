@@ -21,7 +21,10 @@ export default function Home() {
   const [isMetric, setIsMetric] = useState(true);
   const [searchQuery, setSearchQuery] = useState('oslo');
   const [loading, setLoading] = useState(false);
-  const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
+  // const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
+  const [fiveDaysForecastData, setFiveDaysForecastData] = useState([
+    { dt: 1715158800, weather: [{ icon: '03d' }], main: { temp: 286 } },
+  ]);
 
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -98,8 +101,8 @@ export default function Home() {
           return entryDate === date && entryTime >= 9;
         });
       });
+
       setFiveDaysForecastData(fiveDaysData);
-      console.log(fiveDaysData);
     }
   }, [data]);
 
@@ -174,13 +177,11 @@ export default function Home() {
             />
 
             {/* Container with 5-day forecast */}
-            {fiveDaysForecastData.length > 0 && ( // Wait for forecast data to be fetched to the state
-              <Container
-                dataToIterate={fiveDaysForecastData}
-                timestampFormat={'day'}
-                isMetric={isMetric}
-              />
-            )}
+            <Container
+              dataToIterate={fiveDaysForecastData}
+              timestampFormat={'day'}
+              isMetric={isMetric}
+            />
           </div>
         </div>
       )}
