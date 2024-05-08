@@ -22,9 +22,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('oslo');
   const [loading, setLoading] = useState(false);
   // const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
-  const [fiveDaysForecastData, setFiveDaysForecastData] = useState([
-    { dt: 1715158800, weather: [{ icon: '03d' }], main: { temp: 286 } },
-  ]);
+  const [fiveDaysForecastData, setFiveDaysForecastData] = useState([]);
 
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -91,14 +89,14 @@ export default function Home() {
         ),
       ];
 
-      // Filter forecast data for the next 5 days at 9:00 AM
+      // Filter forecast data for the next 5 days at 00:00 AM
       const fiveDaysData = forecastDates.map((date) => {
         return data.list.find((entry) => {
           const entryDate = new Date(entry.dt * 1000)
             .toISOString()
             .split('T')[0];
           const entryTime = new Date(entry.dt * 1000).getHours();
-          return entryDate === date && entryTime >= 9;
+          return entryDate === date && entryTime >= 0;
         });
       });
 

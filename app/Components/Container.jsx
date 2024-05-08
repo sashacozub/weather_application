@@ -15,6 +15,7 @@ const Container = ({ dataToIterate, timestampFormat, isMetric }) => {
     <div className='bg-white border border-gray-300 rounded-md px-2 py-2 w-full my-2 shadow-md'>
       <div className='flex justify-between py-3 overflow-x-auto overflow-hidden'>
         {dataToIterate.map((item) => {
+          // Prevents rendering of undefined items
           if (item !== undefined) {
             return (
               <div
